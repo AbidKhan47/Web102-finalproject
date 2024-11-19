@@ -41,7 +41,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Movie Rating App' width='' alt='Video Walkthrough' />
+<img src='src/images/WEB 102 Project 7.gif' title='Movie Rating App' width='' alt='Video Walkthrough' />
 
 <!-- Replace this with whatever GIF tool you used! -->
 GIF created with ScreenToGIF  
@@ -52,7 +52,7 @@ GIF created with ScreenToGIF
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+I had complications with the routing. 
 
 ## License
 
