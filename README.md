@@ -41,7 +41,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='src/images/WEB 102 Project 7.gif' title='Movie Rating App' width='' alt='Video Walkthrough' />
+<img src='src/images/WEB 102 Final Project.gif' title='Movie Rating App' width='' alt='Video Walkthrough' />
 
 <!-- Replace this with whatever GIF tool you used! -->
 GIF created with ScreenToGIF  
