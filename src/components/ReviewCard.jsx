@@ -10,6 +10,9 @@ const ReviewCard = ({ review, onUpvote }) => {
     onUpvote(review.id);
   };
 
+  // Format the created_at timestamp
+  const formattedTime = new Date(review.created_at).toLocaleString();
+
   return (
     <div className="border rounded-lg overflow-hidden shadow-lg bg-white">
       <div 
@@ -35,6 +38,7 @@ const ReviewCard = ({ review, onUpvote }) => {
         <p className="text-gray-700 mb-2 line-clamp-3">{review.description}</p>
         <div className="flex justify-between items-center">
           <span className="text-gray-500">By {review.name}</span>
+          <span className="text-gray-500 text-sm">{formattedTime}</span> {/* Display time */}
           <button
             onClick={handleUpvoteClick}
             className="flex items-center text-red-500 hover:text-red-600"

@@ -10,6 +10,8 @@ const SinglePostPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [editing, setEditing] = useState(false);
+  const [newComment, setNewComment] = useState("");
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     const fetchReview = async () => {
@@ -25,6 +27,7 @@ const SinglePostPage = () => {
         if (!data) throw new Error("Review not found");
 
         setReview(data);
+        setComments(data.comments || []);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -56,6 +59,37 @@ const SinglePostPage = () => {
       }));
     } catch (err) {
       console.error("Error upvoting:", err);
+    }
+  };
+
+  const handleAddComment = async (e) => {
+    e.preventDefault();
+
+    if (!newComment) return;
+
+    const newCommentData = {
+      name: "Anonymous", // Can be replaced with a form input for name
+      comment: newComment,
+      created_at: new Date().toISOString(),
+    };
+
+    const updatedComments = [...comments, newCommentData];
+
+    try {
+      setLoading(true);
+      const { error } = await supabase
+        .from("ratings")
+        .update({ comments: updatedComments })
+        .eq("id", id);
+
+      if (error) throw error;
+
+      setComments(updatedComments);
+      setNewComment("");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -161,6 +195,38 @@ const SinglePostPage = () => {
                   <span>{review.upvotes || 0}</span>
                 </button>
               </div>
+
+              <div className="mt-6">
+                <h3 className="text-2xl font-bold">Comments</h3>
+                <form onSubmit={handleAddComment} className="mt-4">
+                  <textarea
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    className="w-full p-3 border rounded"
+                    placeholder="Add a comment..."
+                    required
+                  />
+                  <button
+                    type="submit"
+                    className="bg-blue-500 text-white px-4 py-2 mt-2 rounded"
+                  >
+                    Add Comment
+                  </button>
+                </form>
+
+                <div className="mt-6">
+                  {comments.map((comment, index) => (
+                    <div key={index} className="border-t pt-4">
+                      <p className="font-semibold">{comment.name}</p>
+                      <p>{comment.comment}</p>
+                      <p className="text-sm text-gray-500">
+                        {new Date(comment.created_at).toLocaleString()}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               <div className="mt-4 flex space-x-4">
                 <button
                   onClick={handleEditToggle}
